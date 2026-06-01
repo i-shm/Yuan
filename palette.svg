@@ -1,0 +1,40 @@
+<svg width="760" height="220" viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <clipPath id="rounded-strip">
+      <rect x="20" y="168" width="720" height="24" rx="4"/>
+    </clipPath>
+  </defs>
+
+  <!-- Card background -->
+  <rect x="0" y="0" width="760" height="220" rx="8" fill="#FFFDF8" stroke="#DED8C9" stroke-width="1"/>
+
+  <!-- VS Code Theme label -->
+  <text x="380" y="38" text-anchor="middle" font-size="13" letter-spacing="4" font-weight="700" fill="#788B45" font-family="-apple-system,BlinkMacSystemFont,sans-serif">VS CODE THEME</text>
+
+  <!-- Yuan title -->
+  <text x="380" y="92" text-anchor="middle" font-size="56" font-weight="700" fill="#2F2B26" font-family="-apple-system,BlinkMacSystemFont,sans-serif" letter-spacing="-1">Yuan</text>
+
+  <!-- Description -->
+  <text x="380" y="122" text-anchor="middle" font-size="15" font-weight="500" fill="#6F685D" font-family="-apple-system,BlinkMacSystemFont,sans-serif">
+    <tspan x="380" dy="0">A light and dark editor palette shaped from RMB denomination colors:</tspan>
+    <tspan x="380" dy="22">red, jade, brown gold, blue, purple, and olive.</tspan>
+  </text>
+
+  <!-- Palette strip -->
+  <g clip-path="url(#rounded-strip)">
+    <rect x="20" y="168" width="120" height="24" fill="#B8323B"/>
+    <rect x="140" y="168" width="120" height="24" fill="#3B8F74"/>
+    <rect x="260" y="168" width="120" height="24" fill="#A66A3A"/>
+    <rect x="380" y="168" width="120" height="24" fill="#2F6F9F"/>
+    <rect x="500" y="168" width="120" height="24" fill="#7A5AA6"/>
+    <rect x="620" y="168" width="120" height="24" fill="#788B45"/>
+  </g>
+
+  <!-- Denomination labels -->
+  <text x="80" y="210" text-anchor="middle" font-size="12" font-weight="600" fill="#8B8477" font-family="-apple-system,BlinkMacSystemFont,sans-serif">¥100</text>
+  <text x="200" y="210" text-anchor="middle" font-size="12" font-weight="600" fill="#8B8477" font-family="-apple-system,BlinkMacSystemFont,sans-serif">¥50</text>
+  <text x="320" y="210" text-anchor="middle" font-size="12" font-weight="600" fill="#8B8477" font-family="-apple-system,BlinkMacSystemFont,sans-serif">¥20</text>
+  <text x="440" y="210" text-anchor="middle" font-size="12" font-weight="600" fill="#8B8477" font-family="-apple-system,BlinkMacSystemFont,sans-serif">¥10</text>
+  <text x="560" y="210" text-anchor="middle" font-size="12" font-weight="600" fill="#8B8477" font-family="-apple-system,BlinkMacSystemFont,sans-serif">¥5</text>
+  <text x="680" y="210" text-anchor="middle" font-size="12" font-weight="600" fill="#8B8477" font-family="-apple-system,BlinkMacSystemFont,sans-serif">¥1</text>
+</svg>

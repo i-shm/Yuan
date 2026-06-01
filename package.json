@@ -1,0 +1,52 @@
+{
+  "name": "yuan-vscode-theme",
+  "displayName": "Yuan",
+  "description": "A calm VS Code color theme family inspired by RMB denomination colors.",
+  "version": "0.1.0",
+  "publisher": "somhairle",
+  "license": "MIT",
+  "extensionKind": [
+    "ui"
+  ],
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "keywords": [
+    "theme",
+    "yuan",
+    "rmb",
+    "renminbi",
+    "light",
+    "dark"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "id": "yuan-light",
+        "label": "Yuan Light",
+        "uiTheme": "vs",
+        "path": "./themes/yuan-light-color-theme.json"
+      },
+      {
+        "id": "yuan-dark",
+        "label": "Yuan Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/yuan-dark-color-theme.json"
+      }
+    ]
+  },
+  "scripts": {
+    "test": "node scripts/validate-theme.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/i-shm/Yuan.git"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.5"
+  },
+  "icon": "icon.png"
+}

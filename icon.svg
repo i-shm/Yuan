@@ -1,0 +1,21 @@
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="128" cy="128" r="120" fill="#FFFDF8" stroke="#DED8C9" stroke-width="2"/>
+
+  <!-- Six colored dots arranged in a ring -->
+  <!-- ¥100 red - top -->
+  <circle cx="128" cy="48" r="28" fill="#B8323B"/>
+  <!-- ¥50 jade - top right -->
+  <circle cx="197.2" cy="88.8" r="28" fill="#3B8F74"/>
+  <!-- ¥20 brown gold - bottom right -->
+  <circle cx="197.2" cy="167.2" r="28" fill="#A66A3A"/>
+  <!-- ¥10 blue - bottom -->
+  <circle cx="128" cy="208" r="28" fill="#2F6F9F"/>
+  <!-- ¥5 purple - bottom left -->
+  <circle cx="58.8" cy="167.2" r="28" fill="#7A5AA6"/>
+  <!-- ¥1 olive - top left -->
+  <circle cx="58.8" cy="88.8" r="28" fill="#788B45"/>
+
+  <!-- Yuan character 元 -->
+  <text x="128" y="142" text-anchor="middle" font-size="52" font-weight="700" fill="#2F2B26" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif">元</text>
+</svg>
