@@ -4,13 +4,22 @@ import path from "node:path";
 const root = path.resolve(new URL("..", import.meta.url).pathname);
 const packageJson = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8"));
 const themes = packageJson.contributes?.themes ?? [];
+const denominations = [
+  ["one", "壹元 (¥1)"],
+  ["two", "贰元 (¥2)"],
+  ["five", "伍元 (¥5)"],
+  ["ten", "拾元 (¥10)"],
+  ["twenty", "贰拾元 (¥20)"],
+  ["fifty", "伍拾元 (¥50)"],
+  ["hundred", "壹佰元 (¥100)"]
+];
 
 if (packageJson.displayName !== "Yuan") {
   throw new Error("Extension displayName must be Yuan");
 }
 
-if (themes.length !== 2) {
-  throw new Error(`Expected 2 contributed themes, found ${themes.length}`);
+if (themes.length !== denominations.length * 2) {
+  throw new Error(`Expected ${denominations.length * 2} contributed themes, found ${themes.length}`);
 }
 
 const hexColor = /^#[0-9a-fA-F]{6}([0-9a-fA-F]{2})?$/;
@@ -28,8 +37,42 @@ const requiredWorkbenchColors = [
   "terminal.ansiBlue"
 ];
 
+const relativeLuminance = (hex) => {
+  const [r, g, b] = hex
+    .slice(1, 7)
+    .match(/../g)
+    .map((channel) => {
+      const value = Number.parseInt(channel, 16) / 255;
+      return value <= 0.03928 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
+    });
+
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+};
+
+const contrastRatio = (a, b) => {
+  const lighter = Math.max(relativeLuminance(a), relativeLuminance(b));
+  const darker = Math.min(relativeLuminance(a), relativeLuminance(b));
+  return (lighter + 0.05) / (darker + 0.05);
+};
+
+const expectedThemes = new Map();
+for (const [id, label] of denominations) {
+  expectedThemes.set(`yuan-${id}-light`, { label: `${label} Light`, uiTheme: "vs" });
+  expectedThemes.set(`yuan-${id}-dark`, { label: `${label} Dark`, uiTheme: "vs-dark" });
+}
+
 for (const theme of themes) {
-  if (!["vs", "vs-dark"].includes(theme.uiTheme)) {
+  const expected = expectedThemes.get(theme.id);
+
+  if (!expected) {
+    throw new Error(`${theme.id} is not an expected denomination theme`);
+  }
+
+  if (theme.label !== expected.label) {
+    throw new Error(`${theme.id} label must be ${expected.label}`);
+  }
+
+  if (theme.uiTheme !== expected.uiTheme) {
     throw new Error(`${theme.label} has invalid uiTheme ${theme.uiTheme}`);
   }
 
@@ -40,8 +83,8 @@ for (const theme of themes) {
     throw new Error(`${theme.path} is missing the VS Code color theme schema`);
   }
 
-  if (!data.name?.startsWith("Yuan ")) {
-    throw new Error(`${theme.path} must be named Yuan Light or Yuan Dark`);
+  if (data.name !== theme.label) {
+    throw new Error(`${theme.path} name must match contributed label ${theme.label}`);
   }
 
   for (const key of requiredWorkbenchColors) {
@@ -56,6 +99,22 @@ for (const theme of themes) {
 
   if (data.semanticHighlighting !== true || typeof data.semanticTokenColors !== "object") {
     throw new Error(`${theme.path} must enable semantic highlighting and semanticTokenColors`);
+  }
+
+  const readablePairs = [
+    ["editor.foreground", "editor.background", 7],
+    ["sideBar.foreground", "sideBar.background", 4.5],
+    ["button.foreground", "button.background", 4.5],
+    ["terminal.foreground", "terminal.background", 7],
+    ["tab.activeForeground", "tab.activeBackground", 4.5]
+  ];
+
+  for (const [foreground, background, minimum] of readablePairs) {
+    const ratio = contrastRatio(data.colors[foreground], data.colors[background]);
+
+    if (ratio < minimum) {
+      throw new Error(`${theme.path} ${foreground} on ${background} contrast ${ratio.toFixed(2)} is below ${minimum}`);
+    }
   }
 }
 

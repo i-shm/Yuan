@@ -2,8 +2,8 @@
   "name": "yuan-vscode-theme",
   "displayName": "Yuan",
   "description": "A calm VS Code color theme family inspired by RMB denomination colors.",
-  "version": "0.1.0",
-  "publisher": "somhairle",
+  "version": "0.2.0",
+  "publisher": "muqiuhan",
   "license": "MIT",
   "extensionKind": [
     "ui"
@@ -25,20 +25,93 @@
   "contributes": {
     "themes": [
       {
-        "id": "yuan-light",
-        "label": "Yuan Light",
+        "id": "yuan-one-light",
+        "label": "壹元 (¥1) Light",
         "uiTheme": "vs",
-        "path": "./themes/yuan-light-color-theme.json"
+        "path": "./themes/yuan-one-light-color-theme.json"
       },
       {
-        "id": "yuan-dark",
-        "label": "Yuan Dark",
+        "id": "yuan-one-dark",
+        "label": "壹元 (¥1) Dark",
         "uiTheme": "vs-dark",
-        "path": "./themes/yuan-dark-color-theme.json"
+        "path": "./themes/yuan-one-dark-color-theme.json"
+      },
+      {
+        "id": "yuan-two-light",
+        "label": "贰元 (¥2) Light",
+        "uiTheme": "vs",
+        "path": "./themes/yuan-two-light-color-theme.json"
+      },
+      {
+        "id": "yuan-two-dark",
+        "label": "贰元 (¥2) Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/yuan-two-dark-color-theme.json"
+      },
+      {
+        "id": "yuan-five-light",
+        "label": "伍元 (¥5) Light",
+        "uiTheme": "vs",
+        "path": "./themes/yuan-five-light-color-theme.json"
+      },
+      {
+        "id": "yuan-five-dark",
+        "label": "伍元 (¥5) Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/yuan-five-dark-color-theme.json"
+      },
+      {
+        "id": "yuan-ten-light",
+        "label": "拾元 (¥10) Light",
+        "uiTheme": "vs",
+        "path": "./themes/yuan-ten-light-color-theme.json"
+      },
+      {
+        "id": "yuan-ten-dark",
+        "label": "拾元 (¥10) Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/yuan-ten-dark-color-theme.json"
+      },
+      {
+        "id": "yuan-twenty-light",
+        "label": "贰拾元 (¥20) Light",
+        "uiTheme": "vs",
+        "path": "./themes/yuan-twenty-light-color-theme.json"
+      },
+      {
+        "id": "yuan-twenty-dark",
+        "label": "贰拾元 (¥20) Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/yuan-twenty-dark-color-theme.json"
+      },
+      {
+        "id": "yuan-fifty-light",
+        "label": "伍拾元 (¥50) Light",
+        "uiTheme": "vs",
+        "path": "./themes/yuan-fifty-light-color-theme.json"
+      },
+      {
+        "id": "yuan-fifty-dark",
+        "label": "伍拾元 (¥50) Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/yuan-fifty-dark-color-theme.json"
+      },
+      {
+        "id": "yuan-hundred-light",
+        "label": "壹佰元 (¥100) Light",
+        "uiTheme": "vs",
+        "path": "./themes/yuan-hundred-light-color-theme.json"
+      },
+      {
+        "id": "yuan-hundred-dark",
+        "label": "壹佰元 (¥100) Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/yuan-hundred-dark-color-theme.json"
       }
     ]
   },
   "scripts": {
+    "generate": "node scripts/generate-themes.mjs",
     "test": "node scripts/validate-theme.mjs"
   },
   "repository": {
