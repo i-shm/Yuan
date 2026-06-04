@@ -69,24 +69,24 @@ const paletteFor = (denomination, mode) => {
 
   const neutral = isDark
     ? {
-        editor: "#1F211D",
-        chrome: "#171816",
-        panel: "#252720",
-        raised: "#303229",
-        border: "#3A3D34",
-        borderSoft: "#2B2D27",
+        editor: oklchToHex(0.205, 0.018, h),
+        chrome: oklchToHex(0.16, 0.014, h),
+        panel: oklchToHex(0.245, 0.018, h),
+        raised: oklchToHex(0.3, 0.02, h),
+        border: oklchToHex(0.36, 0.02, h),
+        borderSoft: oklchToHex(0.28, 0.016, h),
         foreground: "#D8D2C4",
         foregroundStrong: "#F0E8D8",
         muted: "#8A867C",
         variable: "#C6D6DE"
       }
     : {
-        editor: "#FFFDF8",
-        chrome: "#F3F1EA",
-        panel: "#F6F3EC",
-        raised: "#E8E1D3",
-        border: "#CFC5B1",
-        borderSoft: "#DED8C9",
+        editor: oklchToHex(0.985, 0.012, h),
+        chrome: oklchToHex(0.955, 0.018, h),
+        panel: oklchToHex(0.97, 0.014, h),
+        raised: oklchToHex(0.91, 0.024, h),
+        border: oklchToHex(0.83, 0.028, h),
+        borderSoft: oklchToHex(0.88, 0.022, h),
         foreground: "#2F2B26",
         foregroundStrong: "#1F1B16",
         muted: "#7B766A",
@@ -96,13 +96,13 @@ const paletteFor = (denomination, mode) => {
   const primary = oklchToHex(isDark ? 0.72 : 0.54, c, h);
   const primaryStrong = oklchToHex(isDark ? 0.8 : 0.45, c, h);
   const primarySoft = oklchToHex(isDark ? 0.36 : 0.9, c * 0.62, h);
-  const keyword = oklchToHex(isDark ? 0.73 : 0.5, 0.11, hue(h, 122));
-  const string = oklchToHex(isDark ? 0.76 : 0.5, 0.1, hue(h, 0));
-  const func = oklchToHex(isDark ? 0.78 : 0.54, 0.1, hue(h, 48));
-  const type = oklchToHex(isDark ? 0.76 : 0.5, 0.1, hue(h, -58));
-  const regexp = oklchToHex(isDark ? 0.76 : 0.5, 0.1, hue(h, 178));
-  const comment = oklchToHex(isDark ? 0.73 : 0.48, 0.07, hue(h, -118));
-  const cyan = oklchToHex(isDark ? 0.78 : 0.52, 0.08, hue(h, -92));
+  const keyword = oklchToHex(isDark ? 0.74 : 0.49, 0.11, h);
+  const string = oklchToHex(isDark ? 0.77 : 0.5, 0.08, hue(h, 16));
+  const func = oklchToHex(isDark ? 0.78 : 0.53, 0.09, hue(h, 32));
+  const type = oklchToHex(isDark ? 0.75 : 0.49, 0.09, hue(h, -28));
+  const regexp = oklchToHex(isDark ? 0.76 : 0.5, 0.09, hue(h, 58));
+  const comment = oklchToHex(isDark ? 0.72 : 0.47, 0.055, hue(h, -12));
+  const cyan = oklchToHex(isDark ? 0.78 : 0.52, 0.08, hue(h, -42));
   const error = oklchToHex(isDark ? 0.74 : 0.5, 0.12, 22);
 
   return {
@@ -147,7 +147,7 @@ const tokenColors = (p) => [
   { scope: "markup.inline.raw", settings: { foreground: p.string } },
   { scope: "meta.diff.header", settings: { foreground: p.type } },
   { scope: "storage", settings: { foreground: p.keyword } },
-  { scope: "storage.type", settings: { foreground: p.type } },
+  { scope: "storage.type", settings: { foreground: p.keyword } },
   { scope: ["keyword", "keyword.control", "keyword.operator.expression"], settings: { foreground: p.keyword } },
   { scope: "keyword.operator", settings: { foreground: p.foreground } },
   { scope: ["string", "constant.other.symbol"], settings: { foreground: p.string } },
@@ -286,7 +286,7 @@ const workbenchColors = (p) => ({
   "notifications.background": p.editor,
   "notifications.border": p.borderSoft,
   "notifications.foreground": p.foreground,
-  "panel.background": p.chrome,
+  "panel.background": p.panel,
   "panel.border": p.borderSoft,
   "panelInput.border": p.border,
   "panelTitle.activeBorder": p.primary,

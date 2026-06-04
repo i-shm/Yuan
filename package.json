@@ -2,7 +2,7 @@
   "name": "yuan-vscode-theme",
   "displayName": "Yuan",
   "description": "A calm VS Code color theme family inspired by RMB denomination colors.",
-  "version": "0.2.0",
+  "version": "0.5.1",
   "publisher": "muqiuhan",
   "license": "MIT",
   "extensionKind": [

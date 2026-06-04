@@ -55,11 +55,56 @@ const contrastRatio = (a, b) => {
   return (lighter + 0.05) / (darker + 0.05);
 };
 
+const srgbToLinear = (value) => {
+  const channel = value / 255;
+  return channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
+};
+
+const oklchColor = (hex) => {
+  const [r, g, b] = hex
+    .slice(1, 7)
+    .match(/../g)
+    .map((channel) => srgbToLinear(Number.parseInt(channel, 16)));
+
+  const l = 0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b;
+  const m = 0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b;
+  const s = 0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b;
+
+  const lPrime = Math.cbrt(l);
+  const mPrime = Math.cbrt(m);
+  const sPrime = Math.cbrt(s);
+
+  const a = 1.9779984951 * lPrime - 2.428592205 * mPrime + 0.4505937099 * sPrime;
+  const bAxis = 0.0259040371 * lPrime + 0.7827717662 * mPrime - 0.808675766 * sPrime;
+  const hue = (Math.atan2(bAxis, a) * 180) / Math.PI;
+
+  return {
+    chroma: Math.hypot(a, bAxis),
+    hue: (hue + 360) % 360
+  };
+};
+
+const oklchHue = (hex) => oklchColor(hex).hue;
+
+const hueDistance = (a, b) => {
+  const distance = Math.abs(a - b) % 360;
+  return Math.min(distance, 360 - distance);
+};
+
 const expectedThemes = new Map();
 for (const [id, label] of denominations) {
   expectedThemes.set(`yuan-${id}-light`, { label: `${label} Light`, uiTheme: "vs" });
   expectedThemes.set(`yuan-${id}-dark`, { label: `${label} Dark`, uiTheme: "vs-dark" });
 }
+
+const tokenColorForScope = (tokenColors, scope) => {
+  const token = tokenColors.find((entry) => {
+    const scopes = Array.isArray(entry.scope) ? entry.scope : [entry.scope];
+    return scopes.includes(scope);
+  });
+
+  return token?.settings?.foreground;
+};
 
 for (const theme of themes) {
   const expected = expectedThemes.get(theme.id);
@@ -99,6 +144,68 @@ for (const theme of themes) {
 
   if (data.semanticHighlighting !== true || typeof data.semanticTokenColors !== "object") {
     throw new Error(`${theme.path} must enable semantic highlighting and semanticTokenColors`);
+  }
+
+  const keywordColor = data.semanticTokenColors.keyword;
+  const typeColor = data.semanticTokenColors.type;
+
+  if (tokenColorForScope(data.tokenColors, "storage.type") !== keywordColor) {
+    throw new Error(`${theme.path} must color storage.type declarations as keywords`);
+  }
+
+  for (const scope of ["entity.name.type", "entity.name.class", "support.type", "support.class"]) {
+    if (tokenColorForScope(data.tokenColors, scope) !== typeColor) {
+      throw new Error(`${theme.path} must color ${scope} identifiers as types`);
+    }
+  }
+
+  const primaryHue = oklchHue(data.colors.focusBorder);
+  const denominationSyntaxRoles = [
+    ["keyword", keywordColor, 45],
+    ["type", typeColor, 45],
+    ["function", data.semanticTokenColors.function, 45],
+    ["string", data.semanticTokenColors.string, 35],
+    ["comment", data.semanticTokenColors.comment, 60],
+    ["regexp", data.semanticTokenColors.regexp, 75]
+  ];
+
+  for (const [role, color, maximumDistance] of denominationSyntaxRoles) {
+    const distance = hueDistance(primaryHue, oklchHue(color));
+
+    if (distance > maximumDistance) {
+      throw new Error(`${theme.path} ${role} hue distance ${distance.toFixed(1)} exceeds ${maximumDistance}`);
+    }
+  }
+
+  const distinctCoreColors = new Set(
+    ["keyword", "type", "function", "string"].map((role) => data.semanticTokenColors[role])
+  );
+
+  if (distinctCoreColors.size < 4) {
+    throw new Error(`${theme.path} must keep core syntax roles visually separated`);
+  }
+
+  const surfaceColors = [
+    ["editor.background", 0.006, 0.026, 45],
+    ["sideBar.background", 0.01, 0.04, 45],
+    ["panel.background", 0.008, 0.034, 45],
+    ["button.secondaryBackground", 0.01, 0.05, 45],
+    ["widget.border", 0.01, 0.055, 45]
+  ];
+
+  for (const [surface, minimumChroma, maximumChroma, maximumDistance] of surfaceColors) {
+    const color = oklchColor(data.colors[surface]);
+    const distance = hueDistance(primaryHue, color.hue);
+
+    if (distance > maximumDistance) {
+      throw new Error(`${theme.path} ${surface} hue distance ${distance.toFixed(1)} exceeds ${maximumDistance}`);
+    }
+
+    if (color.chroma < minimumChroma || color.chroma > maximumChroma) {
+      throw new Error(
+        `${theme.path} ${surface} chroma ${color.chroma.toFixed(3)} is outside ${minimumChroma}-${maximumChroma}`
+      );
+    }
   }
 
   const readablePairs = [

@@ -1,21 +1,71 @@
 <svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-  <!-- Background circle -->
-  <circle cx="128" cy="128" r="120" fill="#FFFDF8" stroke="#DED8C9" stroke-width="2"/>
+  <defs>
+    <linearGradient id="paper" x1="34" y1="54" x2="222" y2="202">
+      <stop offset="0%" stop-color="#FFFDF4"/>
+      <stop offset="52%" stop-color="#F3E7D0"/>
+      <stop offset="100%" stop-color="#D9C49C"/>
+    </linearGradient>
 
-  <!-- Six colored dots arranged in a ring -->
-  <!-- ¥100 red - top -->
-  <circle cx="128" cy="48" r="28" fill="#B8323B"/>
-  <!-- ¥50 jade - top right -->
-  <circle cx="197.2" cy="88.8" r="28" fill="#3B8F74"/>
-  <!-- ¥20 brown gold - bottom right -->
-  <circle cx="197.2" cy="167.2" r="28" fill="#A66A3A"/>
-  <!-- ¥10 blue - bottom -->
-  <circle cx="128" cy="208" r="28" fill="#2F6F9F"/>
-  <!-- ¥5 purple - bottom left -->
-  <circle cx="58.8" cy="167.2" r="28" fill="#7A5AA6"/>
-  <!-- ¥1 olive - top left -->
-  <circle cx="58.8" cy="88.8" r="28" fill="#788B45"/>
+    <linearGradient id="edge" x1="34" y1="54" x2="222" y2="202">
+      <stop offset="0%" stop-color="#A55251"/>
+      <stop offset="22%" stop-color="#9C5C33"/>
+      <stop offset="43%" stop-color="#36804C"/>
+      <stop offset="63%" stop-color="#1E789F"/>
+      <stop offset="82%" stop-color="#7361A8"/>
+      <stop offset="100%" stop-color="#7A711F"/>
+    </linearGradient>
 
-  <!-- Yuan character 元 -->
-  <text x="128" y="142" text-anchor="middle" font-size="52" font-weight="700" fill="#2F2B26" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif">元</text>
+    <radialGradient id="seal" cx="40%" cy="28%" r="72%">
+      <stop offset="0%" stop-color="#FFF7E8"/>
+      <stop offset="62%" stop-color="#EAD5AD"/>
+      <stop offset="100%" stop-color="#C7A66D"/>
+    </radialGradient>
+
+    <pattern id="guilloche" width="32" height="18" patternUnits="userSpaceOnUse">
+      <path d="M0 9c8-12 24-12 32 0M0 9c8 12 24 12 32 0" fill="none" stroke="#9C8A61" stroke-width="1" opacity="0.22"/>
+    </pattern>
+
+    <pattern id="micro" width="18" height="18" patternUnits="userSpaceOnUse">
+      <path d="M1 9h16M9 1v16" stroke="#B79D6D" stroke-width="0.7" opacity="0.18"/>
+    </pattern>
+  </defs>
+
+  <rect x="27" y="68" width="202" height="132" rx="22" fill="#2F2B26" opacity="0.18" transform="rotate(-8 128 134)"/>
+
+  <g transform="rotate(-8 128 134)">
+    <rect x="24" y="54" width="208" height="136" rx="22" fill="url(#edge)"/>
+    <rect x="32" y="62" width="192" height="120" rx="17" fill="url(#paper)"/>
+    <rect x="42" y="72" width="172" height="100" rx="12" fill="url(#micro)" opacity="0.9"/>
+    <rect x="42" y="72" width="172" height="100" rx="12" fill="none" stroke="#8D774B" stroke-width="2" opacity="0.55"/>
+    <rect x="51" y="81" width="154" height="82" rx="8" fill="url(#guilloche)" opacity="0.88"/>
+
+    <path d="M64 69v106" stroke="#A55251" stroke-width="5" opacity="0.72"/>
+    <path d="M72 69v106" stroke="#FFFFFF" stroke-width="1.2" opacity="0.72"/>
+    <path d="M184 72c-8 12-8 28 0 40s8 28 0 40" fill="none" stroke="#3B8F74" stroke-width="5" opacity="0.62"/>
+    <path d="M192 72c-8 12-8 28 0 40s8 28 0 40" fill="none" stroke="#2F6F9F" stroke-width="2" opacity="0.62"/>
+
+    <circle cx="128" cy="122" r="38" fill="url(#seal)" stroke="#8D774B" stroke-width="3"/>
+    <circle cx="128" cy="122" r="29" fill="none" stroke="#FFF7E8" stroke-width="1.8" opacity="0.72"/>
+    <text x="128" y="139" text-anchor="middle" font-size="48" font-weight="850" fill="#2F2B26" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif">元</text>
+
+    <g fill="none" stroke-width="3" opacity="0.86">
+      <path d="M52 95h16v-16h-16z" stroke="#7A711F"/>
+      <path d="M52 146h16v-16h-16z" stroke="#7361A8"/>
+      <path d="M188 95h16v-16h-16z" stroke="#36804C"/>
+      <path d="M188 146h16v-16h-16z" stroke="#A55251"/>
+    </g>
+
+    <g>
+      <circle cx="82" cy="83" r="5.5" fill="#7A711F"/>
+      <circle cx="99" cy="82" r="5.5" fill="#00816F"/>
+      <circle cx="116" cy="81" r="5.5" fill="#7361A8"/>
+      <circle cx="133" cy="81" r="5.5" fill="#1E789F"/>
+      <circle cx="150" cy="82" r="5.5" fill="#9C5C33"/>
+      <circle cx="167" cy="83" r="5.5" fill="#36804C"/>
+      <circle cx="184" cy="84" r="5.5" fill="#A55251"/>
+    </g>
+
+    <path d="M43 169h169" stroke="#FFFFFF" stroke-width="2" opacity="0.52"/>
+    <path d="M43 176h169" stroke="#8D774B" stroke-width="1" opacity="0.52"/>
+  </g>
 </svg>
